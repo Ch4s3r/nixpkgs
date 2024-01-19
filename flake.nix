@@ -9,31 +9,32 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        flutter_rust_bridge_codegen_src = pkgs.fetchurl {
-          url = "https://github.com/fzyzcjy/flutter_rust_bridge/releases/download/v2.0.0-dev.19/flutter_rust_bridge_codegen-aarch64-apple-darwin-v2.0.0-dev.19.tgz";
-          sha256 = "sha256-hrx1/E7/UkCvYT/1ReoGOzUHTbsfFXUR/BVGRz6OMIU=";
+        outlook_src = pkgs.fetchurl {
+          url = "https://go.microsoft.com/fwlink/p/?linkid=525137";
+          sha256 = "sha256-NUCQo3BbHizAOuY41JASAsMZOwSEIIAjji6HRkjs4Xs=";
+          curlOptsList = [ "-L" ];
         };
       in
       {
         packages = rec {
-          flutter_rust_bridge_codegen = pkgs.stdenv.mkDerivation {
-            name = "flutter_rust_bridge_codegen-aarch64-apple-darwin";
-            src = flutter_rust_bridge_codegen_src;
+          outlook = pkgs.stdenv.mkDerivation {
+            name = "outlook.app";
+            src = outlook_src;
             phases = [ "unpackPhase" "installPhase" ];
             unpackPhase = ''
-              mkdir unpacked
-              tar xzf $src -C unpacked
+              ${pkgs.xar}/bin/xar -xf $src
+              cat Microsoft_Outlook.pkg/Payload | gunzip -dc | ${pkgs.cpio}/bin/cpio -i
             '';
             installPhase = ''
-              mkdir -p $out/bin
-              cp -r unpacked/* $out/bin
+              mkdir -p $out/Applications
+              cp -r Microsoft\ Outlook.app $out/Applications/Microsoft\ Outlook.app
             '';
           };
-          default = flutter_rust_bridge_codegen;
+          default = outlook;
         };
         apps = rec {
-          flutter_rust_bridge_codegen = flake-utils.lib.mkApp { drv = self.packages.${system}.flutter_rust_bridge_codegen; };
-          default = flutter_rust_bridge_codegen;
+          outlook = flake-utils.lib.mkApp { drv = self.packages.${system}.outlook; };
+          default = outlook;
         };
       }
     );
