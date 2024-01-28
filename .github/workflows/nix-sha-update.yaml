@@ -1,0 +1,26 @@
+name: Update nix sha256 of fetchurl
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Run every 5 minutes
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v25
+
+    - name: Update SHA256
+      run: |
+        for url in $(grep -oP 'url = "\K[^"]+' flake.nix); do
+          sha256=$(nix-prefetch-url $url)
+          sed -i "s|url = \"$url\";[^}]*sha256 = \"[^\"]*\";|url = \"$url\"; sha256 = \"$sha256\";|" flake.nix
+        done
+
+    - name: Commit
+      uses: stefanzweifel/git-auto-commit-action@v5
