@@ -18,10 +18,10 @@ jobs:
 
     - name: Update SHA256
       run: |
-        for url in $(grep -oP 'url = "\K[^"]+' flake.nix); do
+        for url in $(awk '/outputs =/,EOF' flake.nix | grep -oP 'url = "\K[^"]+'); do
           sha256=$(nix-prefetch-url $url)
           sed -i "s|url = \"$url\";[^}]*sha256 = \"[^\"]*\";|url = \"$url\"; sha256 = \"$sha256\";|" flake.nix
         done
 
-    - name: Commit
-      uses: stefanzweifel/git-auto-commit-action@v5
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
