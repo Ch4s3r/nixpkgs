@@ -20,7 +20,7 @@ jobs:
 
     - name: Update SHA256
       run: |
-        for url in $(awk '/outputs =/,EOF' flake.nix | grep -oP 'url = "\K[^"]+'); do
+        for url in $(awk '/outputs =/,EOF' flake.nix | rg -r '$1' 'url = "(.*)"+'); do
           sha256=$(nix-prefetch-url $url)
           sed -i "s|url = \"$url\";[^}]*sha256 = \"[^\"]*\";|url = \"$url\"; sha256 = \"$sha256\";|" flake.nix
         done
