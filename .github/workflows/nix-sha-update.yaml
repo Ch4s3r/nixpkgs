@@ -16,7 +16,14 @@ jobs:
         ref: ${{ github.head_ref }}
 
     - name: Install Nix
-      uses: cachix/install-nix-action@v25
+      uses: DeterminateSystems/nix-installer-action@v9
+
+    - name: Run the Magic Nix Cache
+      uses: DeterminateSystems/magic-nix-cache-action@v2
+
+    - name: Nix develop
+      run: |
+        nix develop
 
     - name: Update SHA256
       run: |

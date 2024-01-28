@@ -33,11 +33,9 @@
           outlookWrapper = pkgs.writeShellScriptBin "outlookWrapper" ''
             open ${outlook}/Applications/Microsoft\ Outlook.app
           '';
-          default = outlook;
         };
-        apps = rec {
-          outlook = flake-utils.lib.mkApp { drv = self.packages.${system}.outlookWrapper; };
-          default = outlook;
+        devShell = pkgs.mkShell {
+          buildInputs = [ pkgs.ripgrep ];
         };
       }
     );
