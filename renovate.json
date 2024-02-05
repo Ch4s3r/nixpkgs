@@ -4,9 +4,17 @@
         "config:recommended"
     ],
     "lockFileMaintenance": {
-        "enabled": true
+        "enabled": true,
+        "schedule": [
+            "at any time"
+        ]
     },
     "nix": {
-        "enabled": true
-    }
+        "enabled": true,
+        "schedule": [
+            "at any time"
+        ]
+    },
+    "prHourlyLimit": 0,
+    "prConcurrentLimit": 0
 }
