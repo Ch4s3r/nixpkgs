@@ -19,7 +19,7 @@
     "outlook_src": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-z3g0IRm9hZLTqy/mjI5lpuYX0YdSg7x5FZebFUnE6FA=",
+        "narHash": "sha256-dddddddddddddd/mjI5lpuYX0YdSg7x5FZebFUnE6FA=",
         "type": "file",
         "url": "https://go.microsoft.com/fwlink/p/?linkid=525137"
       },
