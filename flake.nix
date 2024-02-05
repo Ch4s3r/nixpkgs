@@ -6,26 +6,10 @@
   outputs = { self, nixpkgs, outlook_src }:
     let
       pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+      outlook = import ./outlook.nix { inherit pkgs outlook_src; };
     in
     {
-      packages.aarch64-darwin = rec {
-        outlook = pkgs.stdenv.mkDerivation {
-          name = "outlook.app";
-          src = outlook_src;
-          phases = [ "unpackPhase" "installPhase" ];
-          unpackPhase = ''
-            ${pkgs.xar}/bin/xar -xf $src
-            cat Microsoft_Outlook.pkg/Payload | gunzip -dc | ${pkgs.cpio}/bin/cpio -i
-          '';
-          installPhase = ''
-            mkdir -p $out/Applications
-            cp -r Microsoft\ Outlook.app $out/Applications/Microsoft\ Outlook.app
-          '';
-        };
-        outlookWrapper = pkgs.writeShellScriptBin "outlookWrapper" ''
-          open ${outlook}/Applications/Microsoft\ Outlook.app
-        '';
-        default = outlookWrapper;
-      };
+      packages.aarch64-darwin.outlook = outlook.outlook;
+      apps.aarch64-darwin.outlookWrapper = outlook.outlookWrapper;
     };
 }
