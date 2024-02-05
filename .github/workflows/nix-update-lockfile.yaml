@@ -6,8 +6,7 @@ on:
 jobs:
   lockfile:
     permissions:
-      contents: read
-      pull-requests: write
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
