@@ -7,6 +7,7 @@ jobs:
   lockfile:
     permissions:
       contents: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,5 +21,3 @@ jobs:
           pr-labels: |
             dependencies
             automated
-          token: ${{ secrets.GITHUB_TOKEN }}
-            
