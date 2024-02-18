@@ -2,11 +2,11 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "lastModified": 1706913249,
-        "narHash": "sha256-x3M7iV++CsvRXI1fpyFPduGELUckZEhSv0XWnUopAG8=",
+        "lastModified": 1708118438,
+        "narHash": "sha256-kk9/0nuVgA220FcqH/D2xaN6uGyHp/zoxPNUmPCMmEE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e92b6015881907e698782c77641aa49298330223",
+        "rev": "5863c27340ba4de8f83e7e3c023b9599c3cb3c80",
         "type": "github"
       },
       "original": {
@@ -19,7 +19,7 @@
     "outlook_src": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-z3g0IRm9hZLTqy/mjI5lpuYX0YdSg7x5FZebFUnE6FA=",
+        "narHash": "sha256-m6s1zuIRG3bcncPAghouQpC8Js7OVmRFuQ3q6uSQP5I=",
         "type": "file",
         "url": "https://go.microsoft.com/fwlink/p/?linkid=525137"
       },
