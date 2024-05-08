@@ -1,12 +1,9 @@
 { pkgs ? import <nixpkgs> {} }:
-let
-  version = "2.7.7";
-in
 pkgs.stdenv.mkDerivation {
   name = "keepassxc";
   src = pkgs.fetchurl {
-    url = "https://github.com/keepassxreboot/keepassxc/releases/download/${version}/KeePassXC-${version}-arm64.dmg";
-    hash = "sha256-hoFUBifQP3D2g9xazXmvj0K7ohQl/681LHnrXDH7lxI=";
+    url = "https://github.com/keepassxreboot/keepassxc/releases/download/2.7.8/KeePassXC-2.7.8-arm64.dmg";
+    sha256 = "0ydzchm20vh4r9d8qyv6l5g4ajggc9l9fm898zaak470w2gmm6a5";
   };
   nativeBuildInputs = with pkgs; [ fd (callPackage ../7zz { }) ];
   unpackPhase = ''

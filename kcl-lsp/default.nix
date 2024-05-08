@@ -3,7 +3,7 @@ pkgs.stdenv.mkDerivation {
   name = "kcl-lsp";
   src = pkgs.fetchurl {
     url = "https://github.com/kcl-lang/kcl/releases/download/v0.8.5/kclvm-v0.8.5-darwin-arm64.tar.gz";
-    hash = "sha256-Ljt3/oTbBTQrD3+XOzyHgw06vnDyZi8b3LMgbogay+g=";
+    sha256 = "1s6b3a46w85kvhdjyrpjf2z3l3c3hwy3p5vz1wmk81fvhkz7ffrf";
   };
   nativeBuildInputs = with pkgs; [ fd (callPackage ../7zz { }) ];
   unpackPhase = ''

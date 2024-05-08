@@ -1,12 +1,9 @@
 { pkgs ? import <nixpkgs> {} }:
-let
-  version = "1.13.1";
-in
 pkgs.stdenv.mkDerivation {
   name = "rancher-desktop";
   src = pkgs.fetchurl {
-    url = "https://github.com/rancher-sandbox/rancher-desktop/releases/download/v${version}/Rancher.Desktop-${version}.aarch64.dmg";
-    hash = "sha256-czTiJGyODQFXM2l/m8mrrhiXMpZnFZX2ueA5hw0yc4g=";
+    url = "https://github.com/rancher-sandbox/rancher-desktop/releases/download/v1.13.1/Rancher.Desktop-1.13.1.aarch64.dmg";
+    sha256 = "123k686qffg0p7v9a5b7jqr9f65fmg4rnzv96dbh23cfdhjf4d3k";
   };
   nativeBuildInputs = with pkgs; [ fd (callPackage ../7zz { }) ];
   unpackPhase = ''

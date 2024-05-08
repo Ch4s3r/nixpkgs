@@ -3,7 +3,7 @@ pkgs.stdenv.mkDerivation {
   name = "google-chrome";
   src = pkgs.fetchurl {
     url = "https://dl.google.com/chrome/mac/universal/stable/GGRO/googlechrome.dmg";
-    hash = "sha256-9aT7QuKld77C0RZqyGeFFaM0oJA8x3Kq7hm9ryOSMP0=";
+    sha256 = "1ayiz9k9h4x7vlpi97hcixkyflyviblrqymijq1rvpc5fnx6gzns";
   };
   nativeBuildInputs = with pkgs; [ fd (callPackage ../7zz { }) ];
   unpackPhase = ''

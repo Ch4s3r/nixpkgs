@@ -3,7 +3,7 @@ pkgs.stdenv.mkDerivation {
   name = "docker-desktop";
   src = pkgs.fetchurl {
     url = "https://desktop.docker.com/mac/main/arm64/Docker.dmg";
-    hash = "sha256-u+pYDL2lkjPGIKJY5KJzaeBNUGhzWgh7jhNiLV5p/NU=";
+    sha256 = "0d5822i5k36ijpdks90fmv6lxi9dl58pgxw90pkfc9dbrv7706nm";
   };
   nativeBuildInputs = with pkgs; [ fd (callPackage ../7zz { }) ];
   unpackPhase = ''

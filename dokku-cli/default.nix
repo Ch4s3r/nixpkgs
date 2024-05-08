@@ -5,7 +5,7 @@ pkgs.stdenv.mkDerivation {
     owner = "dokku";
     repo = "dokku";
     rev = "v0.34.4";
-    sha256 = "sha256-ukeL1lxY/0nHNKPvexyePnI37+0/h5Ln/snEeraO8A4=";
+    sha256 = "0hpyyfcm5hz7l36cbw3j8l0sxypdlawdvbqy654rz3vlza38x17d";
   };
   installPhase = ''
     mkdir -p $out/bin
