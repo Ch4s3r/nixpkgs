@@ -3,7 +3,7 @@ pkgs.stdenv.mkDerivation {
   name = "outlook";
   src = pkgs.fetchurl {
     url = "https://go.microsoft.com/fwlink/p/?linkid=525137";
-    sha256 = "1hfxvsdslbicwwq56xvv42x4b850v44wg82mk16hqk9iynz4sh9s";
+    sha256 = "1gj8x36453j1hlcgrrsx8wrvwdagsw8b9i9h42j74kcs0w49jhiw";
   };
   nativeBuildInputs = with pkgs; [ fd (callPackage ../7zz { }) ];
   unpackPhase = ''
