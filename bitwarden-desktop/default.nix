@@ -5,7 +5,7 @@ pkgs.stdenv.mkDerivation {
     url = "https://github.com/bitwarden/clients/releases/download/desktop-v2024.5.0/Bitwarden-2024.5.0-universal.dmg";
     sha256 = "sha256-XLrg13a/cpSAslKzJjDaS9NsPUSy1XCQ3ZWNpR9ehp0=";
   };
-  nativeBuildInputs = with pkgs; [ fd (callPackage ../7zz { }) ];
+  nativeBuildInputs = with pkgs; [ fd _7zz ];
   unpackPhase = ''
     7zz x $src  || true
   '';

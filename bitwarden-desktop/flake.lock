@@ -1,0 +1,40 @@
+{
+  "nodes": {
+    "bitwarden-src": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-qi+uliKZEQIejAYJkac0vUvf60G9ywjiQaxqmng6Kkg=",
+        "type": "file",
+        "url": "https://github.com/bitwarden/clients/releases/download/desktop-v2024.5.0/Bitwarden-2024.5.0-universal.dmg"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/bitwarden/clients/releases/download/desktop-v2024.5.0/Bitwarden-2024.5.0-universal.dmg"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1717196966,
+        "narHash": "sha256-yZKhxVIKd2lsbOqYd5iDoUIwsRZFqE87smE2Vzf6Ck0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "57610d2f8f0937f39dbd72251e9614b1561942d8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "bitwarden-src": "bitwarden-src",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
