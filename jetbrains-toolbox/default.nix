@@ -1,9 +1,9 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> {} }:
 pkgs.stdenv.mkDerivation {
-  name = "docker-desktop";
+  name = "jetbrains-toolbox";
   src = pkgs.fetchurl {
-    url = "https://desktop.docker.com/mac/main/arm64/Docker.dmg";
-    sha256 = "sha256-VY3+7nZGf6/ETv8cLBXmNUPRGjYyObPeAl6/ZE3V89Y=";
+    url = "https://download.jetbrains.com/toolbox/jetbrains-toolbox-2.3.2.31487-arm64.dmg";
+    sha256 = "sha256-Ueob5ltnHxrpkCQjCk/rnDJF0JEN0n0qPp1fWdCpnH8=";
   };
   nativeBuildInputs = with pkgs; [ fd _7zz ];
   unpackPhase = ''

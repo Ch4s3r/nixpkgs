@@ -5,7 +5,7 @@ pkgs.stdenv.mkDerivation {
     url = "https://go.microsoft.com/fwlink/p/?linkid=525137";
     sha256 = "1gj8x36453j1hlcgrrsx8wrvwdagsw8b9i9h42j74kcs0w49jhiw";
   };
-  nativeBuildInputs = with pkgs; [ fd (callPackage ../7zz { }) ];
+  nativeBuildInputs = with pkgs; [ fd _7zz ];
   unpackPhase = ''
       7zz x $src
       cat Microsoft_Outlook.pkg/Payload | gunzip -dc | ${pkgs.cpio}/bin/cpio -i

@@ -5,9 +5,9 @@ pkgs.stdenv.mkDerivation {
     url = "https://calibre-ebook.com/dist/osx";
     sha256 = "1d0m888rw39fxia6gg0z8m1havbj5qrdcvnwdzslxnaqgib4ndvn";
   };
-  nativeBuildInputs = with pkgs; [ fd (callPackage ../7zz { }) ];
+  nativeBuildInputs = with pkgs; [ fd _7zz ];
   unpackPhase = ''
-    7zz x $src  || true
+    7zz x $src || true
   '';
   installPhase = ''
     mkdir -p $out/Applications

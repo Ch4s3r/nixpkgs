@@ -7,7 +7,7 @@ pkgs.stdenv.mkDerivation {
   };
   nativeBuildInputs = with pkgs; [ fd _7zz ];
   unpackPhase = ''
-    7zz x $src  || true
+    7zz x $src || true
   '';
   installPhase = ''
     mkdir -p $out/Applications

@@ -3,22 +3,22 @@
     "bitwarden-src": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-qi+uliKZEQIejAYJkac0vUvf60G9ywjiQaxqmng6Kkg=",
+        "narHash": "sha256-utWECfdIGZz2X5sugnnSPaoZ/QkARvSUBkuvxLssrJs=",
         "type": "file",
-        "url": "https://github.com/bitwarden/clients/releases/download/desktop-v2024.5.0/Bitwarden-2024.5.0-universal.dmg"
+        "url": "https://filebin.net/archive/mmisva6z0wzxbjhy/zip"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/bitwarden/clients/releases/download/desktop-v2024.5.0/Bitwarden-2024.5.0-universal.dmg"
+        "url": "https://filebin.net/archive/mmisva6z0wzxbjhy/zip"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1717196966,
-        "narHash": "sha256-yZKhxVIKd2lsbOqYd5iDoUIwsRZFqE87smE2Vzf6Ck0=",
+        "lastModified": 1719506693,
+        "narHash": "sha256-C8e9S7RzshSdHB7L+v9I51af1gDM5unhJ2xO1ywxNH8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "57610d2f8f0937f39dbd72251e9614b1561942d8",
+        "rev": "b2852eb9365c6de48ffb0dc2c9562591f652242a",
         "type": "github"
       },
       "original": {
