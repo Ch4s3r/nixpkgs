@@ -2,8 +2,8 @@
 pkgs.stdenv.mkDerivation {
   name = "signal-desktop";
   src = pkgs.fetchurl {
-    url = "https://updates.signal.org/desktop/signal-desktop-mac-universal-7.14.0.dmg";
-    sha256 = "sha256-1AZzeYPyy+EuTK8/JwIysY0Nrl19V9n7sRSLHnoxkLQ=";
+    url = "https://updates.signal.org/desktop/signal-desktop-mac-universal-7.15.0.dmg";
+    sha256 = "0pq2ql0m34l0zglvml8g1dmp2bszvnncmiz7q8kpr42kjm19sxz4";
   };
   nativeBuildInputs = with pkgs; [ fd _7zz ];
   unpackPhase = ''
