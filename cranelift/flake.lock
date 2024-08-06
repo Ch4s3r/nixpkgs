@@ -1,0 +1,44 @@
+{
+  "nodes": {
+    "cranelift-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721560438,
+        "narHash": "sha256-5VjQ86BWVSjEgev4KjgVc6qcZ4lF3dT8EN8GXiCAbCY=",
+        "owner": "rust-lang",
+        "repo": "rustc_codegen_cranelift",
+        "rev": "4fb3c4bf863f2ab32fee13405f71b6785763e909",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rust-lang",
+        "repo": "rustc_codegen_cranelift",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1721379653,
+        "narHash": "sha256-8MUgifkJ7lkZs3u99UDZMB4kbOxvMEXQZ31FO3SopZ0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "1d9c2c9b3e71b9ee663d11c5d298727dace8d374",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "cranelift-src": "cranelift-src",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
