@@ -12,6 +12,6 @@ pkgs.stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/Applications
     export APP_PATH=$(fd -t d ".app" -1)
-    cp -a  "$APP_PATH" $out/Applications
+    cp -a "$APP_PATH" $out/Applications
   '';
 }
