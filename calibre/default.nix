@@ -13,5 +13,7 @@ pkgs.stdenv.mkDerivation {
     mkdir -p $out/Applications
     export APP_PATH=$(fd -t d ".app" -1)
     cp -a "$APP_PATH" $out/Applications
+    cd $out/Applications/calibre.app/Contents/ebook-viewer.app/Contents/ebook-edit.app/Contents/headless.app/Contents/MacOS/
+    mv calibre-parallel-placeholder-for-codesigning calibre-parallel || true
   '';
 }
