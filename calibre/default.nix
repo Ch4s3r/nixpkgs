@@ -3,7 +3,7 @@ pkgs.stdenv.mkDerivation {
   name = "calibre";
   src = pkgs.fetchurl {
     url = "https://calibre-ebook.com/dist/osx";
-    sha256 = "sha256-G85ym8GYH8ylox/VleJIsQ5KQF0O3rpffD3U1HJOGGc=";
+    sha256 = "sha256-y/rUjRCEenWP24sw8YcI+2R9FHM7I2yX10hIV3qnDwU=";
   };
   nativeBuildInputs = with pkgs; [ fd _7zz ];
   unpackPhase = ''
