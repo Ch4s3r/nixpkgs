@@ -1,0 +1,40 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1736012469,
+        "narHash": "sha256-/qlNWm/IEVVH7GfgAIyP6EsVZI6zjAx1cV5zNyrs+rI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8f3e1f807051e32d8c95cd12b9b421623850a34d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "rancher-desktop-src": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-dYON9iPlJfXilUJH5Jxm7zaoFhQu2jTMRnCvq7G5/cE=",
+        "type": "file",
+        "url": "https://objects.githubusercontent.com/github-production-release-asset-2e65be/306701996/650052ab-03de-4298-9ea2-e309781a66c1?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction/20250107/us-east-1/s3/aws4_request&X-Amz-Date=20250107T091956Z&X-Amz-Expires=300&X-Amz-Signature=ef302db8da61b99da1592e058b11827a2bd44bc91ede940f4b9fac0e66d7a37c&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3DRancher.Desktop-1.17.0.aarch64.dmg&response-content-type=application/octet-stream"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://objects.githubusercontent.com/github-production-release-asset-2e65be/306701996/650052ab-03de-4298-9ea2-e309781a66c1?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=releaseassetproduction/20250107/us-east-1/s3/aws4_request&X-Amz-Date=20250107T091956Z&X-Amz-Expires=300&X-Amz-Signature=ef302db8da61b99da1592e058b11827a2bd44bc91ede940f4b9fac0e66d7a37c&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3DRancher.Desktop-1.17.0.aarch64.dmg&response-content-type=application/octet-stream"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "rancher-desktop-src": "rancher-desktop-src"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
