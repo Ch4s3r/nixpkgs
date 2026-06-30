@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchurl,
+  buildEnv,
   cmake,
   espeak-ng,
   fetchpatch,
@@ -32,11 +33,27 @@
   xdg-utils,
   wrapGAppsHook3,
   popplerSupport ? true,
-  speechSupport ? true,
+  speechSupport ? !stdenv.hostPlatform.isDarwin,
   unrarSupport ? false,
 }:
 let
-  python3Packages = python314Packages; # Calibre 9.0+ requires python3.14+
+  python3Packages =
+    if stdenv.hostPlatform.isDarwin then
+      python314Packages.overrideScope (
+        _self: super: {
+          pyqt6 = super.pyqt6.override { withPdf = false; };
+        }
+      )
+    else
+      python314Packages;
+  darwinDeps = buildEnv {
+    name = "calibre-darwin-dependencies";
+    paths = [
+      hunspell
+      libuchardet
+    ];
+    extraOutputsToInstall = [ "dev" ];
+  };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "calibre";
@@ -65,7 +82,11 @@ stdenv.mkDerivation (finalAttrs: {
         hash = "sha256-lKp/omNicSBiQUIK+6OOc8ysM6LImn5GxWhpXr4iX+U=";
       })
     ]
-    ++ lib.optional (!unrarSupport) ./dont_build_unrar_plugin.patch;
+    ++ lib.optional (!unrarSupport) ./dont_build_unrar_plugin.patch
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      ./lift-build-platform-restrictions.patch
+      ./darwin-use-linux-layout.patch
+    ];
 
   prePatch = ''
     sed -i "s@\[tool.sip.project\]@[tool.sip.project]\nsip-include-dirs = [\"${python3Packages.pyqt6}/${python3Packages.python.sitePackages}/PyQt6/bindings\"]@g" \
@@ -106,59 +127,67 @@ stdenv.mkDerivation (finalAttrs: {
     podofo0
     poppler-utils
     qt6.qtbase
-    qt6.qtwayland
     sqlite
     (python3Packages.python.withPackages (
-      ps:
-      with ps;
+      _:
       [
-        (apsw.overrideAttrs (_oldAttrs: {
+        (python3Packages.apsw.overrideAttrs (_oldAttrs: {
           setupPyBuildFlags = [ "--enable=load_extension" ];
         }))
-        beautifulsoup4
-        css-parser
-        cssselect
-        fonttools
-        python-dateutil
-        dnspython
-        faust-cchardet
-        feedparser
-        html2text
-        html5-parser
-        lxml
-        markdown
-        mechanize
-        msgpack
-        netifaces
-        pillow
-        pychm
-        pykakasi
-        pyqt-builder
-        pyqt6
-        pystache
-        python
-        regex
-        sip
-        setuptools
-        tzdata
-        tzlocal
-        zeroconf
-        jeepney
-        pycryptodome
-        xxhash
+        python3Packages.beautifulsoup4
+        python3Packages.css-parser
+        python3Packages.cssselect
+        python3Packages.fonttools
+        python3Packages.python-dateutil
+        python3Packages.dnspython
+        python3Packages.faust-cchardet
+        python3Packages.feedparser
+        python3Packages.html2text
+        python3Packages.html5-parser
+        python3Packages.lxml
+        python3Packages.markdown
+        python3Packages.mechanize
+        python3Packages.msgpack
+        python3Packages.netifaces
+        python3Packages.pillow
+        python3Packages.pychm
+        python3Packages.pykakasi
+        python3Packages.pyqt-builder
+        python3Packages.pyqt6
+        python3Packages.pystache
+        python3Packages.python
+        python3Packages.regex
+        python3Packages.sip
+        python3Packages.setuptools
+        python3Packages.tzdata
+        python3Packages.tzlocal
+        python3Packages.zeroconf
+        python3Packages.pycryptodome
+        python3Packages.xxhash
         # the following are distributed with calibre, but we use upstream instead
-        odfpy
+        python3Packages.odfpy
       ]
-      ++ lib.optionals (lib.lists.elem stdenv.hostPlatform.system pyqt6-webengine.meta.platforms) [
-        # much of calibre's functionality is usable without a web
-        # browser, so we enable building on platforms which qtwebengine
-        # does not support by simply omitting qtwebengine.
-        pyqt6-webengine
+      ++
+        lib.optionals
+          (
+            !stdenv.hostPlatform.isDarwin
+            && lib.lists.elem stdenv.hostPlatform.system python3Packages.pyqt6-webengine.meta.platforms
+          )
+          [
+            # much of calibre's functionality is usable without a web
+            # browser, so we enable building on platforms which qtwebengine
+            # does not support by simply omitting qtwebengine.
+            python3Packages.pyqt6-webengine
+          ]
+      ++ lib.optional unrarSupport python3Packages.unrardll
+      ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ python3Packages.jeepney ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        python3Packages.macfsevents
       ]
-      ++ lib.optional unrarSupport unrardll
     ))
     xdg-utils
   ]
+  ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ qt6.qtwayland ]
   ++ lib.optionals speechSupport [
     piper-tts
     (speechd-minimal.override { inherit python3Packages; })
@@ -185,7 +214,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-
+  ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    export HOME="$TMPDIR/fakehome"
+    mkdir -p "$HOME"
+    ln -s ${darwinDeps} "$HOME/sw"
+  ''
+  + ''
     python setup.py install --root=$out \
       --prefix=$out \
       --libdir=$out/lib \
@@ -267,6 +302,10 @@ stdenv.mkDerivation (finalAttrs: {
       ]
       ++ lib.optionals (!unrarSupport) [
         "test_unrar"
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        "test_mem_leaks"
+        "test_openssl"
       ];
 
       testFlags = lib.concatStringsSep " " (
@@ -301,6 +340,5 @@ stdenv.mkDerivation (finalAttrs: {
       sempiternal-aurora
     ];
     platforms = lib.platforms.unix;
-    broken = stdenv.hostPlatform.isDarwin;
   };
 })
