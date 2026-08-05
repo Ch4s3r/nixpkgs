@@ -1,39 +1,34 @@
 {
   lib,
   rustPlatform,
-  fetchCrate,
-  fetchurl,
+  fetchFromGitHub,
   pkg-config,
   dbus,
   sops,
+  jq,
   nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "secretspec";
-  version = "0.17.0";
+  version = "0.18.0";
 
-  src = fetchCrate {
-    inherit (finalAttrs) pname version;
-    hash = "sha256-3UW0j5i+2r8yWaYYCtbdtiPJe8epLKeR1cpP35Bxko4=";
+  src = fetchFromGitHub {
+    owner = "cachix";
+    repo = "secretspec";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-ckaHzN8nAVnhBgdWLCbCnWcoovoUWOcnJv0eSQSpcWU=";
   };
 
-  cargoHash = "sha256-I6HFcWPB5TUSMtnk+SEHMxiKlPBxHLrj8zgzEWllV2w=";
+  cargoHash = "sha256-g7tv7Fjzzkl+Q1FdS/d+E7aQMDI2uehqheRS38AtFEk=";
 
-  postPatch = ''
-    mkdir -p schema
-    cp ${
-      fetchurl {
-        url = "https://raw.githubusercontent.com/cachix/secretspec/v${finalAttrs.version}/schema/resolution-report.schema.json";
-        hash = "sha256-MDuWWa05hh3g5AtaJnoe6qDvf1XVO3C29zKJDm+f+h0=";
-      }
-    } schema/resolution-report.schema.json
-    substituteInPlace src/tests.rs \
-      --replace-fail '../../schema/resolution-report.schema.json' '../schema/resolution-report.schema.json'
-  '';
+  buildAndTestSubdir = "secretspec";
 
   nativeBuildInputs = [ pkg-config ];
-  nativeCheckInputs = [ sops ];
+  nativeCheckInputs = [
+    sops
+    jq
+  ];
   buildInputs = [ dbus ];
 
   preCheck = ''
